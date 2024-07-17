@@ -5,13 +5,13 @@ import {useNavigate} from "react-router-dom";
 import {Button} from "./Button";
 
 export const LogoutBtn = () => {
-    const {getUser} = useUserContext()
+    const {fetchUser} = useUserContext()
     const navigate = useNavigate()
 
     const handleLogout = async () => {
         try {
             const res = await axios.post('/logout')
-            getUser()
+            fetchUser()
             navigate('/')
         } catch (error) {
             console.log(error)

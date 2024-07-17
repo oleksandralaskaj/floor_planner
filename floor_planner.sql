@@ -16,43 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Users`
---
-
-DROP TABLE IF EXISTS `Users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
-  `role_id` int(11) NOT NULL DEFAULT 1,
-  `email` varchar(255) NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `two_factor_secret` text DEFAULT NULL,
-  `two_factor_recovery_codes` text DEFAULT NULL,
-  `two_factor_confirmed_at` timestamp NULL DEFAULT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Users`
---
-
-LOCK TABLES `Users` WRITE;
-/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1,'rory_the_star','Rory','Star',1,'rory@gmail.com',NULL,'$2y$12$cuJqw2N5N/QZO.MGk0V.YeEhsgqgXnkp9Wb.OjMCyZdsNbGXwtJJC',NULL,NULL,NULL,NULL,'2024-07-09 12:09:23','2024-07-09 12:09:23'),(2,'admin_sasha','Oleksandra','Valko',2,'alexandravalko@gmail.com',NULL,'$2y$12$78aOByQYVVk1bfLzk0QGOOtVQeaLWu6cvobl8947qNN4iy69ePw5u',NULL,NULL,NULL,NULL,'2024-07-10 05:30:15','2024-07-10 05:30:15'),(3,'Loly_the_rock','Loly','Rock',1,'loly@gmail.com',NULL,'$2y$12$A6YKXc2mHhpPUjROpWqaG.I0dKf73GPoTtophf6NUWipWpMM2mL46',NULL,NULL,NULL,NULL,'2024-07-11 03:56:44','2024-07-11 03:56:44'),(4,'sony_the_salt','Sony','Salt',1,'sony@gmail.com',NULL,'$2y$12$hbQ3H.3AT8cy2y9LPgQs0OWgKbcDwTVAKy2RWNUOwr1Oj2ZXh3Co2',NULL,NULL,NULL,NULL,'2024-07-11 06:01:13','2024-07-11 06:01:13'),(5,'kory_the_cat','Kory','Cat',1,'kory@gmail.com',NULL,'$2y$12$8zbajcg/4Yql3CeDq8hjae984o7IS2Ziopp91fZIhxTjcz3.BnZuO',NULL,NULL,NULL,NULL,'2024-07-16 18:18:50','2024-07-16 18:18:50');
-/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `cache`
 --
 
@@ -73,7 +36,7 @@ CREATE TABLE `cache` (
 
 LOCK TABLES `cache` WRITE;
 /*!40000 ALTER TABLE `cache` DISABLE KEYS */;
-INSERT INTO `cache` VALUES ('a4ff7cac8b5e22d15e83782b846c5978','i:1;',1721193553),('a4ff7cac8b5e22d15e83782b846c5978:timer','i:1721193553;',1721193553);
+INSERT INTO `cache` VALUES ('58f9f1bf19361821c825f315d5d72b46','i:2;',1721226579),('58f9f1bf19361821c825f315d5d72b46:timer','i:1721226579;',1721226579),('a4ff7cac8b5e22d15e83782b846c5978','i:1;',1721226633),('a4ff7cac8b5e22d15e83782b846c5978:timer','i:1721226633;',1721226633),('alexandravalko@gmail.com|127.0.0.1','i:2;',1721226579),('alexandravalko@gmail.com|127.0.0.1:timer','i:1721226579;',1721226579);
 /*!40000 ALTER TABLE `cache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +190,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,7 +199,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2024_07_09_080902_add_surname_column_to_users',2),(5,'2024_07_09_081234_add_username_column_to_users',2),(6,'2024_07_09_081337_create_projects_table',2),(7,'2024_07_09_081926_add_role_id_column_to_users',2),(8,'2024_07_09_082109_create_objects_table',2),(9,'2024_07_09_082359_create_roles_table',2),(10,'2024_07_09_082429_create_categories_table',2),(11,'2024_07_09_091136_create_personal_access_tokens_table',3),(12,'2024_07_09_123951_rename_name_column',4),(13,'2024_07_09_134655_add_two_factor_columns_to_users_table',5),(14,'2024_07_09_140658_change_default_value_role_id_column',5);
+INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2024_07_09_080902_add_surname_column_to_users',2),(5,'2024_07_09_081234_add_username_column_to_users',2),(6,'2024_07_09_081337_create_projects_table',2),(7,'2024_07_09_081926_add_role_id_column_to_users',2),(8,'2024_07_09_082109_create_objects_table',2),(9,'2024_07_09_082359_create_roles_table',2),(10,'2024_07_09_082429_create_categories_table',2),(12,'2024_07_09_123951_rename_name_column',4),(17,'2024_07_09_140658_change_default_value_role_id_column',7),(18,'2024_07_09_091136_create_personal_access_tokens_table',8),(19,'2024_07_17_134242_change_users_table_name',9),(20,'2024_07_17_140553_change_test_table_name',10),(21,'2024_07_09_134655_add_two_factor_columns_to_users_table',11);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -404,8 +367,45 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('2adAJ7SRe0ve0nOWxVFCV4H8RkKCdZPeLX0ekjV0',1,'127.0.0.1','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36','YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRktyMGxVbVZqeDZRaG1KakdVZzRJNmF1cWRINm9uNGdteDRERkxZbSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly93d3cuZmxvb3ItcGxhbm5lci5jb20vcGxhbm5lciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxNzoicGFzc3dvcmRfaGFzaF93ZWIiO3M6NjA6IiQyeSQxMiRjdUpxdzJONU4vUVpPLk1HazBWLlllRWhzZ3FnWG5rcDlXYi5Pak1DeVpkc05iR1h3dEpKQyI7fQ==',1721203587);
+INSERT INTO `sessions` VALUES ('MJHF2EojAd6xfsaKs1OJqEwo453J7uf7BQOHNP70',NULL,'127.0.0.1','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoibU9ZaFZXVWgyQVpQZ0dHdHp6cEJPb1RMTXZuWG52bW5CdWlqM2FURCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjg6Imh0dHA6Ly93d3cuZmxvb3ItcGxhbm5lci5jb20iO319',1721226641);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `role_id` int(11) NOT NULL DEFAULT 1,
+  `email` varchar(255) NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `two_factor_secret` text DEFAULT NULL,
+  `two_factor_recovery_codes` text DEFAULT NULL,
+  `two_factor_confirmed_at` timestamp NULL DEFAULT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'rory_the_star','Rory','Star',1,'rory@gmail.com',NULL,'$2y$12$cuJqw2N5N/QZO.MGk0V.YeEhsgqgXnkp9Wb.OjMCyZdsNbGXwtJJC',NULL,NULL,NULL,NULL,'2024-07-09 12:09:23','2024-07-09 12:09:23'),(2,'admin_sasha','Oleksandra','Valko',2,'alexandravalko@gmail.com',NULL,'$2y$12$78aOByQYVVk1bfLzk0QGOOtVQeaLWu6cvobl8947qNN4iy69ePw5u',NULL,NULL,NULL,NULL,'2024-07-10 05:30:15','2024-07-10 05:30:15'),(3,'Loly_the_rock','Loly','Rock',1,'loly@gmail.com',NULL,'$2y$12$A6YKXc2mHhpPUjROpWqaG.I0dKf73GPoTtophf6NUWipWpMM2mL46',NULL,NULL,NULL,NULL,'2024-07-11 03:56:44','2024-07-11 03:56:44'),(4,'sony_the_salt','Sony','Salt',1,'sony@gmail.com',NULL,'$2y$12$hbQ3H.3AT8cy2y9LPgQs0OWgKbcDwTVAKy2RWNUOwr1Oj2ZXh3Co2',NULL,NULL,NULL,NULL,'2024-07-11 06:01:13','2024-07-11 06:01:13'),(5,'kory_the_cat','Kory','Cat',1,'kory@gmail.com',NULL,'$2y$12$8zbajcg/4Yql3CeDq8hjae984o7IS2Ziopp91fZIhxTjcz3.BnZuO',NULL,NULL,NULL,NULL,'2024-07-16 18:18:50','2024-07-16 18:18:50');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -417,4 +417,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-17 11:32:47
+-- Dump completed on 2024-07-17 16:31:18
