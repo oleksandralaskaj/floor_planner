@@ -53,7 +53,8 @@ class ProjectController extends Controller
 
         return [
             'status' => "success",
-            'message' => 'project has been updated'
+            'message' => 'project has been updated',
+            'project_id' => $project->id
         ];
     }
 

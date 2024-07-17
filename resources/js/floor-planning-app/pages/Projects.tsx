@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {ProjectItem} from "../components/ProjectItem";
 import {useUserContext} from "../contexts/UserContext";
 import styles from '../pages/Projects.module.scss'
-import {SetProjectForm} from "./SetProjectForm";
+import {SetProjectForm} from "../components/SetProjectForm";
 
 type ProjectData = {
     id: number,
@@ -41,7 +41,5 @@ export const Projects = () => {
             {projects?.length !== 0 ? content :
                 <p className={styles.info}>You have no projects yet, so start with creating one</p>}
         </div>
-        <h2 className={styles.subtitle}>Add new project:</h2>
-        <SetProjectForm />
     </div>
 }

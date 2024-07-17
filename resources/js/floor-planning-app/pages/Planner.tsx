@@ -7,9 +7,9 @@ import {DownloadImage} from "../components/DownloadImage";
 import Konva from "konva";
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import {MakeId} from '../functions/MakeId'
 import {SavePlan} from "../components/SavePlan";
 import {KonvaEventObject} from "konva/lib/Node";
+import {SetProjectForm} from "../components/SetProjectForm";
 
 export const GRIDCELLSIZE = 10;
 
@@ -54,9 +54,13 @@ export const Planner = () => {
     //data for illustration of selected node
     const [selectedNodeAttrs, setSelectedNodeAttr] = useState<Attrs | null>()
 
+    //working project id
+    const {project_id} = useParams()
+    const [projectId, setProjectId] = useState<number | string | null | undefined>(project_id)
+
     const getProjectData = async (): Promise<void> => {
         try {
-            const res = await axios.get(`/api/projects/${project_id}`)
+            const res = await axios.get(`/api/projects/${projectId}`)
             setProjectData(res.data)
             setShapeArray(JSON.parse(res.data.data))
         } catch (error) {
@@ -64,36 +68,11 @@ export const Planner = () => {
         }
     }
 
-    //in case project already exists
-    const {project_id} = useParams();
-
     useEffect(() => {
-        if (project_id) {
+        if (projectId) {
             getProjectData()
-        } else {
-            //in case project in new
-            setShapeArray([
-                {
-                    id: MakeId(),
-                    width: 100,
-                    height: 100,
-                    x: initialCoordinates.x,
-                    y: initialCoordinates.y,
-                    fill: 'red',
-                    rotation: 0,
-                },
-                {
-                    id: MakeId(),
-                    width: 100,
-                    height: 100,
-                    x: initialCoordinates.x + 200,
-                    y: initialCoordinates.y + 200,
-                    fill: 'green',
-                    rotation: 0,
-                },
-            ]);
         }
-    }, []);
+    }, [projectId]);
 
 
     const updateCanvasData = (newData: Attrs) => {
@@ -141,30 +120,32 @@ export const Planner = () => {
         )
     })
 
-    return (
-        <div className={styles.container} id={'workspace'}>
-            <div className={styles.leftbar}>
-                <div className={styles.info}>
-                {selectedNodeAttrs ? <>
-                        <p>X: {selectedNodeAttrs.x}</p>
-                        <p>Y: {selectedNodeAttrs.y}</p>
-                        <p>H: {selectedNodeAttrs.height}</p>
-                        <p>W: {selectedNodeAttrs.width}</p></> :
-                    ''
-                }
+    return (<>
+        {!projectId ? <SetProjectForm setProjectId={setProjectId}/> :
+            <div className={styles.container} id={'workspace'}>
+                <div className={styles.leftbar}>
+                    <div className={styles.info}>
+                        {selectedNodeAttrs ? <>
+                                <p>X: {selectedNodeAttrs.x}</p>
+                                <p>Y: {selectedNodeAttrs.y}</p>
+                                <p>H: {selectedNodeAttrs.height}</p>
+                                <p>W: {selectedNodeAttrs.width}</p></> :
+                            ''
+                        }
+                    </div>
+                    <div className={styles.save}>
+                        {linkToDownloadImage && <DownloadImage href={linkToDownloadImage}/>}
+                        <SavePlan project_id={project_id} data={
+                            {...projectData, data: shapeArray}}/>
+                    </div>
                 </div>
-                <div className={styles.save}>
-                    {linkToDownloadImage && <DownloadImage href={linkToDownloadImage}/>}
-                    <SavePlan project_id={project_id} data={
-                        {...projectData, data: shapeArray}}/>
-                </div>
+                <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
+                    <Layer ref={layerRef}>
+                        {content}
+                    </Layer>
+                    <GridLayer/>
+                </Stage>
             </div>
-            <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
-                <Layer ref={layerRef}>
-                    {content}
-                </Layer>
-                <GridLayer/>
-            </Stage>
-        </div>
-    )
+
+        } </>)
 }

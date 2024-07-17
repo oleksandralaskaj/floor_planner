@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {ChangeEventHandler, FormEventHandler, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useUserContext} from "../contexts/UserContext";
-import styles from "./Form.module.scss";
+import styles from "../components/Form.module.scss";
 import {Link} from "../components/Link";
 import {Button} from "../components/Button";
 

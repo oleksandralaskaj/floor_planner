@@ -9,7 +9,7 @@ import {useLocation} from "react-router-dom";
 
 export const Navigation = () => {
     const {user} = useUserContext()
-const location = useLocation()
+    const location = useLocation()
 
     return <div className={styles.container}>
         <div className={styles.content}>
@@ -26,7 +26,7 @@ const location = useLocation()
                 </div> :
                 <>
                     <div className={styles.links}>
-                        {location.pathname !== '/planner' && <Link to={'/planner'}>Start drawing</Link>}
+                        {!location.pathname.includes('/planner') && <Link to={'/planner'}>Start drawing</Link>}
                         <Link to={'/projects'}>My projects</Link>
                     </div>
                     <div className={styles.login}>

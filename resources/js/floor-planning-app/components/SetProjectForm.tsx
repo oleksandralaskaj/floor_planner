@@ -1,12 +1,14 @@
 import styles from "./Form.module.scss";
-import {Button} from "../components/Button";
+import {Button} from "./Button";
 import React, {ChangeEventHandler, FormEventHandler, useState} from "react";
 import axios from "axios";
 import {useUserContext} from "../contexts/UserContext";
+import {useLocation, useNavigate} from "react-router-dom";
+import {Link} from "./Link";
 
-export const SetProjectForm = () => {
+export const SetProjectForm = ({setProjectId}) => {
     const {user} = useUserContext()
-
+    const navigate = useNavigate()
     const [title, setTitle] = useState('')
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
@@ -18,7 +20,9 @@ export const SetProjectForm = () => {
                 title: title
             });
             setTitle('')
-            console.log('api response after save', response.data);
+            setProjectId(response.data.project_id)
+            console.log('new projects id', response.data.project_id);
+            navigate(`/planner/${response.data.project_id}`)
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.log('error setting project title ', error)
@@ -30,7 +34,10 @@ export const SetProjectForm = () => {
         setTitle(event.target.value)
     }
 
-    return <div>
+    return <div className={styles.container}>
+        <div className={styles.header}>
+            <h1 className={styles.title}>What's the name of your new project?</h1>
+        </div>
         <form action="/api/projects/store" method="post" onSubmit={handleSubmit}>
             <div className={styles.fieldBlock}>
                 <div className={styles.item}>
