@@ -1,0 +1,49 @@
+@import "/resources/css/app.scss";
+
+.container {
+    justify-content: center;
+    background-color: $color-secondary;
+    display: flex;
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+        width: 70rem;
+
+        .logo {
+            align-items: center;
+            color: $color-tertiary;
+            display: flex;
+            font: {
+                family: "Lexend Deca", sans-serif;
+                size: 1.5rem;
+                weight: 600;
+            };
+            gap: 1rem;
+            padding: 1rem 0;
+            justify-content: center;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        .login {
+            align-items: center;
+            color: $color-primary;
+            display: flex;
+            font: {
+                family: "Lexend Deca", sans-serif;
+                size: 1rem;
+                weight: 400;
+            }
+            gap: 1rem;
+        }
+
+        .links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+    }
+}

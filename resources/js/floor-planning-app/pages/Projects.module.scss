@@ -1,0 +1,38 @@
+@import "/resources/css/app.scss";
+
+.container {
+    color: $color-primary;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 3rem;
+    justify-content: left;
+
+    .title {
+        font: {
+            family: "Zilla Slab", serif;
+            size: 2.5rem;
+            weight: 800;
+        }
+    }
+    .existing {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+    .subtitle {
+        font: {
+            family: "Lexend Deca", sans-serif;
+            size: 1.5rem;
+            weight: 600;
+        };
+    }
+
+    .info {
+        font: {
+            family: "Lexend Deca", sans-serif;
+            size: 1rem;
+            weight: 300;
+        };
+    }
+}

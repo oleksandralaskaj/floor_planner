@@ -1,0 +1,76 @@
+@import "/resources/css/app.scss";
+
+.container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem;
+
+    .header {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        .title {
+            color: $color-primary;
+            font: {
+                family: "Zilla Slab", serif;
+                size: 2.5rem;
+                weight: 800;
+            }
+        }
+
+        .subtitle {
+            color: $color-primary;
+            font: {
+                family: "Lexend Deca", sans-serif;
+                size: 1.2rem;
+                weight: 300;
+            }
+        }
+    }
+
+    form {
+        align-items: center;
+        color: $color-primary;
+        border: $color-tertiary 3px solid;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        font: {
+            family: "Lexend Deca", sans-serif;
+            size: 1.2rem;
+            weight: 300;
+        };
+        gap: 2rem;
+        padding: 3rem;
+        width: fit-content;
+
+        .fieldBlock {
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .item {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            input[type="text"], input[type="password"],input[type="email"] {
+                border: $color-tertiary 1px solid;
+                border-radius: 0.5rem;
+                font: {
+                    family: 'Lexend Deca', sans-serif;
+                    size: 1rem;
+                }
+                height: 2rem;
+                padding: 0.5rem 1rem;
+                width: 15rem;
+            }
+        }
+    }
+
+}

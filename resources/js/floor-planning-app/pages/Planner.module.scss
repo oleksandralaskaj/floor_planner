@@ -1,0 +1,32 @@
+@import "/resources/css/app.scss";
+
+.container {
+    background-color: #f9f9f9;
+    display: flex;
+    height: 100%;
+
+    .leftbar {
+        background-color: #d8e8f5;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font: {
+            family: "Lexend Deca", sans-serif;
+            size: 1.2rem;
+            weight: 300;
+        }
+        padding: 1rem;
+        width: 100px;
+
+        .info {
+
+        }
+        .save {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            align-items: center;
+
+        }
+    }
+}

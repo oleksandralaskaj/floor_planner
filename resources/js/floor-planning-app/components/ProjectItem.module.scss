@@ -1,0 +1,31 @@
+@import "/resources/css/app";
+
+.container {
+    align-items: flex-start;
+    border-radius: 1rem;
+    display: flex;
+    background-color: $color-secondary-text;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+
+    .title {
+        color: $color-primary;
+        font: {
+            family: "Zilla Slab", serif;
+            size: 2rem;
+            weight: 800;
+        }
+        margin: 0;
+    }
+
+    .date {
+        color: $color-primary;
+        font: {
+            family: "Lexend Deca", sans-serif;
+            size: 1rem;
+            weight: 300;
+        }
+        margin: 0;
+    }
+}

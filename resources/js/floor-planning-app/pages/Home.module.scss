@@ -1,0 +1,60 @@
+@import "/resources/css/app.scss";
+
+.container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+
+    .content {
+        display: flex;
+        gap: 5rem;
+        width: 70rem;
+
+        .textBlock {
+            display: flex;
+            flex-direction: column;
+            flex: auto 2 2;
+            gap: 2rem;
+
+            .title {
+                color: $color-tertiary;
+                font: {
+                    family: "Zilla Slab", serif;
+                    size: 2.5rem;
+                    weight: 800;
+                }
+                margin: 0;
+            }
+
+            .subtitle {
+                font: {
+                    family: "Lexend Deca", sans-serif;
+                    size: 1.2rem;
+                    weight: 300;
+                };
+                margin: 0;
+                width: 70%;
+            }
+
+            .paragraph {
+                font: {
+                    family: "Lexend Deca", sans-serif;
+                    size: 1rem;
+                    weight: 300;
+                };
+                margin: 0;
+            }
+        }
+
+        .image {
+            background-color: $color-secondary;
+            flex: auto 0 0;
+            height: 20rem;
+            width: 20rem;
+        }
+
+    }
+}
+
+
