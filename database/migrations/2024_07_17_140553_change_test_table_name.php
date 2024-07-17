@@ -11,9 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('role_id')->default(1)->change();
-        });
+        Schema::rename('test', 'users');
     }
 
     /**
@@ -21,8 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('role_id')->default(null)->change();
-        });
+        Schema::rename('users', 'test');
     }
 };
