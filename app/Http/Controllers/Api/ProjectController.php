@@ -47,7 +47,7 @@ class ProjectController extends Controller
 
         $project->title = $request->post('title');
         $project->user_id = $request->post('user_id');
-        $project->data = $request?->post('data');
+            $request?->post('data') ?? $project->data = $request?->post('data');
 
         $project->save();
 
@@ -55,5 +55,13 @@ class ProjectController extends Controller
             'status' => "success",
             'message' => 'project has been updated'
         ];
+    }
+
+    public function delete($project_id)
+    {
+        $project = Project::findOrFail($project_id);
+        if ($project) {
+            $project->delete();
+        }
     }
 }

@@ -21,3 +21,6 @@ Route::get('/projects/{project_id}', [ProjectController::class, 'show'])->name('
 
 //update project
 Route::post('/projects/store/{project_id?}', [ProjectController::class, 'store'])->name('api.update-project');
+
+//delete project
+Route::delete('/projects/delete/{project_id}', [ProjectController::class, 'delete'])->name('api.delete-project');

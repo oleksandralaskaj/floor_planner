@@ -5,9 +5,11 @@ import {Link} from "./Link";
 import styles from './Navigation.module.scss'
 import {PencilRuler} from "lucide-react";
 import {Button} from "./Button";
+import {useLocation} from "react-router-dom";
 
 export const Navigation = () => {
     const {user} = useUserContext()
+const location = useLocation()
 
     return <div className={styles.container}>
         <div className={styles.content}>
@@ -24,7 +26,7 @@ export const Navigation = () => {
                 </div> :
                 <>
                     <div className={styles.links}>
-                        <Link to={'/planner'}>Start drawing</Link>
+                        {location.pathname !== '/planner' && <Link to={'/planner'}>Start drawing</Link>}
                         <Link to={'/projects'}>My projects</Link>
                     </div>
                     <div className={styles.login}>
