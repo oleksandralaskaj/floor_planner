@@ -4,7 +4,7 @@ import {GRIDCELLSIZE} from '../pages/Planner'
 import Konva from "konva";
 import {Attrs} from "../pages/Planner";
 
-export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvasData, setShapeArray}) => {
+export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvasData}) => {
     const [attrs, setAttrs] = useState<Attrs>({
         id: providedAttrs.id,
         x: providedAttrs.x,
@@ -12,7 +12,6 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
         height: providedAttrs.height,
         width: providedAttrs.width,
         rotation: providedAttrs.rotation,
-        fill: providedAttrs.fill,
     })
 
 

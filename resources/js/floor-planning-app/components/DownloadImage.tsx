@@ -1,7 +1,8 @@
 import {Button} from "./Button";
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 
 export const DownloadImage = ({href}: {href: string}) => {
+
     return <Button onClickHandler={() => {
         const a = document.createElement("a");
         a.href = href;

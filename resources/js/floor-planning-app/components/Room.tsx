@@ -76,8 +76,8 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                 }
             >
                 <Rect
-                    strokeWidth={1}
-                    stroke={'black'}
+                    strokeWidth={10}
+                    stroke={'#5d5c5c'}
                     onMouseDown={() => {
                         setSelectedId(attrs.id)
                         updateCanvasData(attrs)
@@ -87,25 +87,31 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                     fill={'white'}
 
                 />
-                <Text
-                    fontFamily="Lexend Deca"
-                    padding={10}
-                    text={attrs.height / 100 + ' m'}
-                    x={0}
-                    y={(attrs.height / 2) - 20}/>
-                <Text
-                    fontFamily="Lexend Deca"
-                    padding={10}
-                    text={attrs.width / 100 + ' m'}
-                    x={(attrs.width / 2) - 20}
-                    y={0}/>
-                <Text
-                    fontFamily="Lexend Deca"
-                    fill={'#0089ff'}
-                    padding={10}
-                    text={`${Math.round(attrs.width * attrs.height) / 10000} m²`}
-                    x={(attrs.width) - 70}
-                    y={(attrs.height) - 40}/>
+                {
+                    attrs.height >= 80 && <Text
+                        fontFamily="Lexend Deca"
+                        padding={10}
+                        text={attrs.height / 100 + ' m'}
+                        x={5}
+                        y={(attrs.height / 2) - 20}/>
+                }
+                {
+                    attrs.width >= 80 && <Text
+                        fontFamily="Lexend Deca"
+                        padding={10}
+                        text={attrs.width / 100 + ' m'}
+                        x={(attrs.width / 2) - 20}
+                        y={5}/>
+                }
+                {
+                    (attrs.width >= 80 && attrs.height >= 80) && <Text
+                        fontFamily="Lexend Deca"
+                        fill={'#0089ff'}
+                        padding={10}
+                        text={`${Math.round(attrs.width * attrs.height) / 10000} m²`}
+                        x={5}
+                        y={(attrs.height) - 40}/>
+                }
             </Group>
             {isSelected() && (
                 <Transformer
@@ -116,6 +122,7 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                     anchorStrokeWidth={2}
                     ref={trRef}
                     flipEnabled={false}
+                    padding={-5}
                     // centeredScaling={true}
                     rotationSnaps={[0, 90, 180, 270]}
                     boundBoxFunc={(oldBox, newBox) => {

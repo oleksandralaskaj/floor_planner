@@ -1,5 +1,5 @@
 import React, {KeyboardEvent, RefObject, useEffect, useRef, useState} from "react";
-import {Stage, Layer} from 'react-konva';
+import {Stage, Layer, Text} from 'react-konva';
 import styles from './Planner.module.scss'
 import {GridLayer} from "../components/GridLayer";
 import {DownloadImage} from "../components/DownloadImage";
@@ -128,27 +128,16 @@ export const Planner = () => {
 //everything, that goes to canvas
     const content = shapeArray?.map((shapeData) => {
         return (
-            // <Rectangle
-            //     key={i}
-            //     selectedNodeId={selectedId}
-            //     setSelectedId={setSelectedId}
-            //     providedAttrs={shapeData}
-            //     updateCanvasData={updateCanvasData}
-            //     setShapeArray={setShapeArray}
-            // />
-
             <Room key={shapeData.id}
                   selectedNodeId={selectedId}
                   setSelectedId={setSelectedId}
                   providedAttrs={shapeData}
                   updateCanvasData={updateCanvasData}
-
             />
         )
     })
 
     return (<>
-
             {!projectId ? <SetProjectForm setProjectId={setProjectId}/> :
                 <div className={styles.container} id={'workspace'}>
                     <div className={styles.leftbar}>
@@ -172,6 +161,7 @@ export const Planner = () => {
                     </div>
                     <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
                         <Layer ref={layerRef}>
+                        <Text text={projectData?.title} padding={16} fontFamily={"Lexend Deca"} fontSize={32} fill={'#333333'}/>
                             {content}
                         </Layer>
                         <GridLayer/>
