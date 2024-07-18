@@ -1,5 +1,5 @@
 import React, {createRef, RefObject, useEffect, useState} from "react";
-import {Group, Rect, Text, Transformer} from "react-konva";
+import {Group, KonvaNodeComponent, Rect, Text, Transformer} from "react-konva";
 import {GRIDCELLSIZE} from '../pages/Planner'
 import Konva from "konva";
 import {Attrs} from "../pages/Planner";
@@ -7,13 +7,7 @@ import GroupConfig = Konva.GroupConfig;
 
 export const GroupKonva = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvasData, setShapeArray}) => {
     const [attrs, setAttrs] = useState<Attrs>({
-        id: providedAttrs.id,
-        x: providedAttrs.x,
-        y: providedAttrs.y,
-        height: providedAttrs.height,
-        width: providedAttrs.width,
-        rotation: providedAttrs.rotation,
-        fill: providedAttrs.fill,
+        ...providedAttrs
     })
 
 
@@ -38,7 +32,7 @@ export const GroupKonva = ({providedAttrs, selectedNodeId, setSelectedId, update
 
 
     return (
-        <div >
+        <>
             <Group
                 ref={shapeRef}
                 width={attrs.width}
@@ -78,7 +72,7 @@ export const GroupKonva = ({providedAttrs, selectedNodeId, setSelectedId, update
                         rotation: Math.ceil(node.rotation() * scaleY)
                     })
                 }
-            }
+                }
             >
                 <Rect
                     strokeWidth={1}
@@ -122,6 +116,6 @@ export const GroupKonva = ({providedAttrs, selectedNodeId, setSelectedId, update
                     }}
                 />
             )}
-        </div>
+        </>
     );
 }

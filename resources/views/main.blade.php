@@ -8,12 +8,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/css/app.scss')
     @vite('resources/js/app.js')
+    @viteReactRefresh
+    @vite('resources/js/Floor-planning-app.jsx')
     <title>Floor planning app</title>
 </head>
 <body>
 <div id="floor-planning-app">
-    @viteReactRefresh
-    @vite('resources/js/Floor-planning-app.jsx')
+
 </div>
 </body>
 </html>
