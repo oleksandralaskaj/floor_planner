@@ -1,7 +1,6 @@
-import React, {RefObject, useEffect, useRef, useState} from "react";
+import React, {KeyboardEvent, RefObject, useEffect, useRef, useState} from "react";
 import {Stage, Layer} from 'react-konva';
 import styles from './Planner.module.scss'
-import {Rectangle} from "../components/Rectangle";
 import {GridLayer} from "../components/GridLayer";
 import {DownloadImage} from "../components/DownloadImage";
 import Konva from "konva";
@@ -12,7 +11,7 @@ import {KonvaEventObject} from "konva/lib/Node";
 import {SetProjectForm} from "../components/SetProjectForm";
 import {Button} from "../components/Button";
 import {addShape} from "../functions/addShape";
-import {GroupKonva} from "../components/Group";
+import {Room} from "../components/Room";
 
 export const GRIDCELLSIZE = 10;
 
@@ -22,7 +21,6 @@ export type Attrs = {
     y: number,
     height: number,
     width: number,
-    fill: string,
     rotation: number,
 }
 
@@ -40,10 +38,6 @@ const canvasSize = {
     width: window.innerWidth - 132,
 }
 
-const initialCoordinates = {
-    x: 50,
-    y: 50
-}
 export const Planner = () => {
     //state containing data all elements of canvas
     const [shapeArray, setShapeArray] = useState<Attrs[]>([]);
@@ -65,7 +59,7 @@ export const Planner = () => {
         try {
             const res = await axios.get(`/api/projects/${projectId}`)
             setProjectData(res.data)
-            console.log(res.data)
+
             if (res.data.data) {
                 setShapeArray(JSON.parse(res.data.data))
             }
@@ -104,16 +98,35 @@ export const Planner = () => {
         if (clickedOnEmpty) {
             setSelectedId(null);
             setSelectedNodeAttr(null)
-            console.log('clicked outside of shape')
         }
     };
+
+    // delete shape
+    const handleBSKeyDown = (event: KeyboardEvent) => {
+        if (selectedId && (event.key === 'Backspace')) {
+            const newShapeArray = shapeArray.slice();
+            const indexOfShapeToBeDeleted = shapeArray.findIndex((oldData) => oldData.id === selectedId);
+            newShapeArray.splice(indexOfShapeToBeDeleted, 1)
+            setShapeArray(newShapeArray)
+            setSelectedId(null)
+        }
+    }
+    useEffect(() => {
+        // @ts-ignore
+        window.addEventListener('keydown', handleBSKeyDown);
+
+        return () => {
+            // @ts-ignore
+            window.removeEventListener('keydown', handleBSKeyDown);
+        };
+    }, [selectedId]);
 
 //downloading plan as picture
     const layerRef: RefObject<Konva.Layer> = useRef(null);
     const linkToDownloadImage = layerRef.current?.toDataURL()
 
 //everything, that goes to canvas
-    const content = shapeArray?.map((shapeData, i) => {
+    const content = shapeArray?.map((shapeData) => {
         return (
             // <Rectangle
             //     key={i}
@@ -123,20 +136,25 @@ export const Planner = () => {
             //     updateCanvasData={updateCanvasData}
             //     setShapeArray={setShapeArray}
             // />
-            <GroupKonva key={i}
-                        selectedNodeId={selectedId}
-                        setSelectedId={setSelectedId}
-                        providedAttrs={shapeData}
-                        updateCanvasData={updateCanvasData}
-                        setShapeArray={setShapeArray}
+
+            <Room key={shapeData.id}
+                  selectedNodeId={selectedId}
+                  setSelectedId={setSelectedId}
+                  providedAttrs={shapeData}
+                  updateCanvasData={updateCanvasData}
+
             />
         )
     })
 
     return (<>
+
             {!projectId ? <SetProjectForm setProjectId={setProjectId}/> :
-                <div className={styles.container} id={'workspace'} >
+                <div className={styles.container} id={'workspace'}>
                     <div className={styles.leftbar}>
+                        <div className={styles.tools}>
+                            <Button onClickHandler={() => addShape('outerWall', setShapeArray)}>Room</Button>
+                        </div>
                         <div className={styles.info}>
                             {selectedNodeAttrs ? <>
                                     <p>X: {selectedNodeAttrs.x}</p>
@@ -145,9 +163,6 @@ export const Planner = () => {
                                     <p>W: {selectedNodeAttrs.width}</p></> :
                                 ''
                             }
-                        </div>
-                        <div className={styles.tools}>
-                            <Button onClickHandler={() => addShape('outerWall', setShapeArray)}>Room</Button>
                         </div>
                         <div className={styles.save}>
                             {linkToDownloadImage && <DownloadImage href={linkToDownloadImage}/>}

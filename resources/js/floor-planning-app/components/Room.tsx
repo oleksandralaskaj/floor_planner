@@ -1,11 +1,10 @@
 import React, {createRef, RefObject, useEffect, useState} from "react";
-import {Group, KonvaNodeComponent, Rect, Text, Transformer} from "react-konva";
+import {Group, Rect, Text, Transformer} from "react-konva";
 import {GRIDCELLSIZE} from '../pages/Planner'
 import Konva from "konva";
 import {Attrs} from "../pages/Planner";
-import GroupConfig = Konva.GroupConfig;
 
-export const GroupKonva = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvasData, setShapeArray}) => {
+export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvasData}) => {
     const [attrs, setAttrs] = useState<Attrs>({
         ...providedAttrs
     })
@@ -102,13 +101,19 @@ export const GroupKonva = ({providedAttrs, selectedNodeId, setSelectedId, update
                     y={0}/>
                 <Text
                     fontFamily="Lexend Deca"
+                    fill={'#0089ff'}
                     padding={10}
-                    text={`${Math.round(attrs.width * attrs.height) / 10000} m2`}
-                    x={(attrs.width / 2) - 20}
-                    y={(attrs.height / 2) - 20}/>
+                    text={`${Math.round(attrs.width * attrs.height) / 10000} m²`}
+                    x={(attrs.width) - 70}
+                    y={(attrs.height) - 40}/>
             </Group>
             {isSelected() && (
                 <Transformer
+                    anchorSize={10}
+                    anchorCornerRadius={5}
+                    anchorFill={'#75b6ed'}
+                    anchorStroke={'#0089ff'}
+                    anchorStrokeWidth={2}
                     ref={trRef}
                     flipEnabled={false}
                     // centeredScaling={true}
