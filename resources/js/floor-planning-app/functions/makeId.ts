@@ -1,5 +1,5 @@
 
-export const MakeId = () => {
+export const makeId = () => {
     let result = '';
     if (self.crypto.randomUUID) {
         result = self.crypto.randomUUID()

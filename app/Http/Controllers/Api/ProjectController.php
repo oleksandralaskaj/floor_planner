@@ -47,7 +47,7 @@ class ProjectController extends Controller
 
         $project->title = $request->post('title');
         $project->user_id = $request->post('user_id');
-            $request?->post('data') ?? $project->data = $request?->post('data');
+        $project->data = $request?->post('data');
 
         $project->save();
 

@@ -10,6 +10,9 @@ import axios from "axios";
 import {SavePlan} from "../components/SavePlan";
 import {KonvaEventObject} from "konva/lib/Node";
 import {SetProjectForm} from "../components/SetProjectForm";
+import {Button} from "../components/Button";
+import {addShape} from "../functions/addShape";
+import {GroupKonva} from "../components/Group";
 
 export const GRIDCELLSIZE = 10;
 
@@ -42,9 +45,6 @@ const initialCoordinates = {
     y: 50
 }
 export const Planner = () => {
-    //project data
-    const [projectData, setProjectData] = useState<ProjectData | null>(null)
-
     //state containing data all elements of canvas
     const [shapeArray, setShapeArray] = useState<Attrs[]>([]);
 
@@ -54,6 +54,9 @@ export const Planner = () => {
     //data for illustration of selected node
     const [selectedNodeAttrs, setSelectedNodeAttr] = useState<Attrs | null>()
 
+    //project data
+    const [projectData, setProjectData] = useState<ProjectData | null>(null)
+
     //working project id
     const {project_id} = useParams()
     const [projectId, setProjectId] = useState<number | string | null | undefined>(project_id)
@@ -62,7 +65,10 @@ export const Planner = () => {
         try {
             const res = await axios.get(`/api/projects/${projectId}`)
             setProjectData(res.data)
-            setShapeArray(JSON.parse(res.data.data))
+            console.log(res.data)
+            if (res.data.data) {
+                setShapeArray(JSON.parse(res.data.data))
+            }
         } catch (error) {
             console.log('error fetching project data', error)
         }
@@ -109,43 +115,54 @@ export const Planner = () => {
 //everything, that goes to canvas
     const content = shapeArray?.map((shapeData, i) => {
         return (
-            <Rectangle
-                key={i}
-                selectedNodeId={selectedId}
-                setSelectedId={setSelectedId}
-                providedAttrs={shapeData}
-                updateCanvasData={updateCanvasData}
-                setShapeArray={setShapeArray}
+            // <Rectangle
+            //     key={i}
+            //     selectedNodeId={selectedId}
+            //     setSelectedId={setSelectedId}
+            //     providedAttrs={shapeData}
+            //     updateCanvasData={updateCanvasData}
+            //     setShapeArray={setShapeArray}
+            // />
+            <GroupKonva key={i}
+                        selectedNodeId={selectedId}
+                        setSelectedId={setSelectedId}
+                        providedAttrs={shapeData}
+                        updateCanvasData={updateCanvasData}
+                        setShapeArray={setShapeArray}
             />
         )
     })
 
     return (<>
-        {!projectId ? <SetProjectForm setProjectId={setProjectId}/> :
-            <div className={styles.container} id={'workspace'}>
-                <div className={styles.leftbar}>
-                    <div className={styles.info}>
-                        {selectedNodeAttrs ? <>
-                                <p>X: {selectedNodeAttrs.x}</p>
-                                <p>Y: {selectedNodeAttrs.y}</p>
-                                <p>H: {selectedNodeAttrs.height}</p>
-                                <p>W: {selectedNodeAttrs.width}</p></> :
-                            ''
-                        }
+            {!projectId ? <SetProjectForm setProjectId={setProjectId}/> :
+                <div className={styles.container} id={'workspace'} >
+                    <div className={styles.leftbar}>
+                        <div className={styles.info}>
+                            {selectedNodeAttrs ? <>
+                                    <p>X: {selectedNodeAttrs.x}</p>
+                                    <p>Y: {selectedNodeAttrs.y}</p>
+                                    <p>H: {selectedNodeAttrs.height}</p>
+                                    <p>W: {selectedNodeAttrs.width}</p></> :
+                                ''
+                            }
+                        </div>
+                        <div className={styles.tools}>
+                            <Button onClickHandler={() => addShape('outerWall', setShapeArray)}>Room</Button>
+                        </div>
+                        <div className={styles.save}>
+                            {linkToDownloadImage && <DownloadImage href={linkToDownloadImage}/>}
+                            <SavePlan project_id={project_id} data={
+                                {...projectData, data: shapeArray}}/>
+                        </div>
                     </div>
-                    <div className={styles.save}>
-                        {linkToDownloadImage && <DownloadImage href={linkToDownloadImage}/>}
-                        <SavePlan project_id={project_id} data={
-                            {...projectData, data: shapeArray}}/>
-                    </div>
+                    <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
+                        <Layer ref={layerRef}>
+                            {content}
+                        </Layer>
+                        <GridLayer/>
+                    </Stage>
                 </div>
-                <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
-                    <Layer ref={layerRef}>
-                        {content}
-                    </Layer>
-                    <GridLayer/>
-                </Stage>
-            </div>
 
-        } </>)
+            } </>
+    )
 }
