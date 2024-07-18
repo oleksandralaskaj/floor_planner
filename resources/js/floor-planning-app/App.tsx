@@ -6,7 +6,7 @@ import {Register} from "./pages/Register";
 import {Home} from "./pages/Home";
 import {Login} from "./pages/Login";
 import {Planner} from "./pages/Planner";
-import {Projects} from "./pages/Projects";
+import {MyProjects} from "./pages/MyProjects";
 
 type Props = {
     children?: React.ReactNode
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
                 path: "/projects",
                 element:
                     <RequireAuth>
-                        <Projects/>
+                        <MyProjects/>
                     </RequireAuth>
             }
         ]

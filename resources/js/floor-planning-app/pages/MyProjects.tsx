@@ -15,7 +15,7 @@ type ProjectData = {
     created_at: string,
     updated_at: string | null,
 }
-export const Projects = () => {
+export const MyProjects = () => {
     const [projects, setProjects] = useState<ProjectData[] | null>(null)
     const getProjects = async (): Promise<void> => {
         try {
@@ -41,12 +41,15 @@ export const Projects = () => {
     return <div className={styles.container}>
         <h1 className={styles.title}>My projects</h1>
         <div className={styles.existing}>
-            {projects?.length !== 0 ? content : <>
-                <p className={styles.info}>You have no projects yet, so start with creating one</p>
-                <Link to={'/planner'}>
-                    <Button type={'active'}>Start drawing</Button>
-                </Link>
-            </>}
+            {projects?.length !== 0 ?
+                content :
+                <p className={styles.info}>You have no projects yet, so start with creating one</p>}
+
+        </div>
+        <div>
+            <Link to={'/planner'}>
+                <Button type={'active'}>Start drawing</Button>
+            </Link>
         </div>
     </div>
 }

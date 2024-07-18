@@ -37,6 +37,8 @@ export const GroupKonva = ({providedAttrs, selectedNodeId, setSelectedId, update
                 ref={shapeRef}
                 width={attrs.width}
                 height={attrs.height}
+                x={attrs.x}
+                y={attrs.y}
                 draggable
                 onDragEnd={(e) => {
                     e.target.to({
@@ -84,21 +86,25 @@ export const GroupKonva = ({providedAttrs, selectedNodeId, setSelectedId, update
                     height={attrs.height}
                     width={attrs.width}
                     fill={'white'}
+
                 />
                 <Text
+                    fontFamily="Lexend Deca"
                     padding={10}
                     text={attrs.height / 100 + ' m'}
                     x={0}
                     y={(attrs.height / 2) - 20}/>
                 <Text
+                    fontFamily="Lexend Deca"
                     padding={10}
                     text={attrs.width / 100 + ' m'}
                     x={(attrs.width / 2) - 20}
                     y={0}/>
                 <Text
+                    fontFamily="Lexend Deca"
                     padding={10}
                     text={`${Math.round(attrs.width * attrs.height) / 10000} m2`}
-                    x={(attrs.width / 2) - 30}
+                    x={(attrs.width / 2) - 20}
                     y={(attrs.height / 2) - 20}/>
             </Group>
             {isSelected() && (
