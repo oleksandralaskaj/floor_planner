@@ -199,11 +199,9 @@ export const Planner = () => {
                         </div>
                     </div>
                     <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
-                        <Layer>
+                        <Layer ref={layerRef}>
                             <Text text={projectData?.title} padding={16} fontFamily={"Lexend Deca"} fontSize={32}
                                   fill={'#333333'}/>
-                        </Layer>
-                        <Layer ref={layerRef}>
                             {outerWallContent}
                             {shapeContent}
                             {labelContent}
