@@ -12,6 +12,7 @@ import {SetProjectForm} from "../components/SetProjectForm";
 import {Button} from "../components/Button";
 import {addShape} from "../functions/addShape";
 import {Room} from "../components/Room";
+import {OuterWalls} from "../components/OuterWalls";
 
 export const GRIDCELLSIZE = 10;
 
@@ -22,6 +23,7 @@ export type Attrs = {
     height: number,
     width: number,
     rotation: number,
+    type: string
 }
 
 type  ProjectData = {
@@ -83,7 +85,7 @@ export const Planner = () => {
     }
 
     const updateSelectedNodeAttrs = () => {
-        const shape = shapeArray?.find(item => item.id === selectedId)
+        const shape = shapeArray?.find(item => item?.id === selectedId)
         setSelectedNodeAttr(shape);
     }
 
@@ -127,14 +129,25 @@ export const Planner = () => {
 
 //everything, that goes to canvas
     const content = shapeArray?.map((shapeData) => {
-        return (
-            <Room key={shapeData.id}
-                  selectedNodeId={selectedId}
-                  setSelectedId={setSelectedId}
-                  providedAttrs={shapeData}
-                  updateCanvasData={updateCanvasData}
-            />
-        )
+        switch (shapeData?.type) {
+            case 'room':
+                return (
+                    <Room key={shapeData.id}
+                          selectedNodeId={selectedId}
+                          setSelectedId={setSelectedId}
+                          providedAttrs={shapeData}
+                          updateCanvasData={updateCanvasData}
+                    />);
+            case 'outerWalls' :
+                return (
+                    <OuterWalls key={shapeData.id}
+                                selectedNodeId={selectedId}
+                                setSelectedId={setSelectedId}
+                                providedAttrs={shapeData}
+                                updateCanvasData={updateCanvasData}
+                    />);
+
+        }
     })
 
     return (<>
@@ -142,7 +155,8 @@ export const Planner = () => {
                 <div className={styles.container} id={'workspace'}>
                     <div className={styles.leftbar}>
                         <div className={styles.tools}>
-                            <Button onClickHandler={() => addShape('outerWall', setShapeArray)}>Room</Button>
+                            <Button onClickHandler={() => addShape('room', setShapeArray)}>Room</Button>
+                            <Button onClickHandler={() => addShape('outerWalls', setShapeArray)}>Outer Walls</Button>
                         </div>
                         <div className={styles.info}>
                             {selectedNodeAttrs ? <>
@@ -161,7 +175,8 @@ export const Planner = () => {
                     </div>
                     <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
                         <Layer ref={layerRef}>
-                        <Text text={projectData?.title} padding={16} fontFamily={"Lexend Deca"} fontSize={32} fill={'#333333'}/>
+                            <Text text={projectData?.title} padding={16} fontFamily={"Lexend Deca"} fontSize={32}
+                                  fill={'#333333'}/>
                             {content}
                         </Layer>
                         <GridLayer/>

@@ -4,10 +4,11 @@ import {GRIDCELLSIZE} from '../pages/Planner'
 import Konva from "konva";
 import {Attrs} from "../pages/Planner";
 
-export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvasData}) => {
+export const OuterWalls = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvasData}) => {
     const [attrs, setAttrs] = useState<Attrs>({
         ...providedAttrs
     })
+
 
     const isSelected = () => {
         return selectedNodeId === attrs.id
@@ -65,17 +66,17 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                     setAttrs({
                         ...attrs,
                         x: Math.round(e.target.x() / GRIDCELLSIZE) * GRIDCELLSIZE,
-                        y: Math.round(e.target.y() / GRIDCELLSIZE) * GRIDCELLSIZE,
+                        y: Math.round(e.target.y()/ GRIDCELLSIZE) * GRIDCELLSIZE,
                         // set minimal value
-                        width: Math.max(5, Math.round((node.width() * scaleX) / GRIDCELLSIZE) * GRIDCELLSIZE),
-                        height: Math.max(5, Math.round((node.height() * scaleY) / GRIDCELLSIZE) * GRIDCELLSIZE),
+                        width: Math.max(20, Math.round((node.width() * scaleX) / GRIDCELLSIZE) * GRIDCELLSIZE),
+                        height: Math.max(20, Math.round((node.height() * scaleY) / GRIDCELLSIZE) * GRIDCELLSIZE),
                         rotation: Math.ceil(node.rotation() * scaleY)
                     })
                 }
                 }
             >
                 <Rect
-                    strokeWidth={10}
+                    strokeWidth={20}
                     stroke={'#5d5c5c'}
                     onMouseDown={() => {
                         setSelectedId(attrs.id)
@@ -86,31 +87,6 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                     fill={'white'}
 
                 />
-                {
-                    attrs.height >= 80 && <Text
-                        fontFamily="Lexend Deca"
-                        padding={10}
-                        text={attrs.height / 100 + ' m'}
-                        x={5}
-                        y={(attrs.height / 2) - 20}/>
-                }
-                {
-                    attrs.width >= 80 && <Text
-                        fontFamily="Lexend Deca"
-                        padding={10}
-                        text={attrs.width / 100 + ' m'}
-                        x={(attrs.width / 2) - 20}
-                        y={5}/>
-                }
-                {
-                    (attrs.width >= 80 && attrs.height >= 80) && <Text
-                        fontFamily="Lexend Deca"
-                        fill={'#0089ff'}
-                        padding={10}
-                        text={`${Math.round(attrs.width * attrs.height) / 10000} m²`}
-                        x={5}
-                        y={(attrs.height) - 40}/>
-                }
             </Group>
             {isSelected() && (
                 <Transformer
@@ -121,7 +97,7 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                     anchorStrokeWidth={2}
                     ref={trRef}
                     flipEnabled={false}
-                    padding={-5}
+                    padding={-10}
                     // centeredScaling={true}
                     rotationSnaps={[0, 90, 180, 270]}
                     boundBoxFunc={(oldBox, newBox) => {

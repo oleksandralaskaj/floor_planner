@@ -6,24 +6,26 @@ import {makeId} from "./makeId"
 export const addShape = (canvasElement: string, setShapeArray: Dispatch<SetStateAction<Attrs[]>>) => {
     let newElementData: Attrs
     switch (canvasElement) {
-        case 'outerWall':
+        case 'room':
             newElementData = {
                 id: makeId(),
-                x: 50,
-                y: 50,
+                x: 60,
+                y: 60,
                 height: 300,
                 width: 300,
                 rotation: 0,
+                type: 'room'
             };
             break;
-        default:
+        case 'outerWalls':
             newElementData = {
                 id: makeId(),
-                x: 50,
-                y: 50,
-                height: 550,
-                width: 50,
+                x: 60,
+                y: 60,
+                height: 600,
+                width: 600,
                 rotation: 0,
+                type: 'outerWalls'
             };
             break;
     }
