@@ -76,19 +76,70 @@ export const OuterWalls = ({providedAttrs, selectedNodeId, setSelectedId, update
                 }
             >
                 <Rect
-                    strokeWidth={20}
+                    strokeWidth={1}
                     stroke={'#5d5c5c'}
-                    onMouseDown={() => {
-                        setSelectedId(attrs.id)
-                        updateCanvasData(attrs)
-                    }}
                     fill={'rgba(0, 0, 0, 0)'}
                     height={attrs.height}
                     width={attrs.width}
                 />
+                {/*left line*/}
+                <Rect
+                    onMouseDown={() => {
+                        setSelectedId(attrs.id)
+                        updateCanvasData(attrs)
+                    }}
+                    strokeWidth={1}
+                    stroke={'#5d5c5c'}
+                    fill={'#5d5c5c'}
+                    height={attrs.height}
+                    width={20}
+                    strokeScaleEnabled={false}
+                />
+                {/*right line*/}
+                <Rect
+                    onMouseDown={() => {
+                        setSelectedId(attrs.id)
+                        updateCanvasData(attrs)
+                    }}
+                    strokeWidth={1}
+                    stroke={'#5d5c5c'}
+                    fill={'#5d5c5c'}
+                    height={attrs.height}
+                    width={20}
+                    strokeScaleEnabled={false}
+                    x={attrs.width - 20}
+                />
+                {/*top line*/}
+                <Rect
+                    onMouseDown={() => {
+                        setSelectedId(attrs.id)
+                        updateCanvasData(attrs)
+                    }}
+                    strokeWidth={1}
+                    stroke={'#5d5c5c'}
+                    fill={'#5d5c5c'}
+                    height={20}
+                    width={attrs.width}
+                    strokeScaleEnabled={false}
+                />
+                {/*bottom line*/}
+                <Rect
+                    onMouseDown={() => {
+                        setSelectedId(attrs.id)
+                        updateCanvasData(attrs)
+                    }}
+                    strokeWidth={1}
+                    stroke={'#5d5c5c'}
+                    fill={'#5d5c5c'}
+                    height={20}
+                    width={attrs.width}
+                    strokeScaleEnabled={false}
+                    y={attrs.height - 20}
+                />
             </Group>
             {isSelected() && (
                 <Transformer
+                    padding={-20}
                     anchorSize={10}
                     anchorCornerRadius={5}
                     anchorFill={'#75b6ed'}
@@ -96,7 +147,6 @@ export const OuterWalls = ({providedAttrs, selectedNodeId, setSelectedId, update
                     anchorStrokeWidth={2}
                     ref={trRef}
                     flipEnabled={false}
-                    padding={-10}
                     // centeredScaling={true}
                     rotationSnaps={[0, 90, 180, 270]}
                     boundBoxFunc={(oldBox, newBox) => {

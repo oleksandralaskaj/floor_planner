@@ -81,7 +81,7 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                 }
             >
                 <Rect
-                    strokeWidth={4}
+                    strokeWidth={1}
                     stroke={'#5d5c5c'}
                     onMouseDown={() => {
                         setSelectedId(attrs.id)
@@ -92,30 +92,73 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                     fill={'white'}
                     strokeScaleEnabled={false}
                 />
+                {/*left line*/}
+                <Rect
+                    strokeWidth={1}
+                    stroke={'#5d5c5c'}
+                    fill={'#5d5c5c'}
+                    height={attrs.height}
+                    width={10}
+                    strokeScaleEnabled={false}
+                />
+                {/*right line*/}
+                <Rect
+                    strokeWidth={1}
+                    stroke={'#5d5c5c'}
+                    fill={'#5d5c5c'}
+                    height={attrs.height}
+                    width={10}
+                    strokeScaleEnabled={false}
+                    x={attrs.width - 10}
+                />
+                {/*top line*/}
+                <Rect
+                    strokeWidth={1}
+                    stroke={'#5d5c5c'}
+                    fill={'#5d5c5c'}
+                    height={10}
+                    width={attrs.width}
+                    strokeScaleEnabled={false}
+                />
+                {/*bottom line*/}
+                <Rect
+                    strokeWidth={1}
+                    stroke={'#5d5c5c'}
+                    fill={'#5d5c5c'}
+                    height={10}
+                    width={attrs.width}
+                    strokeScaleEnabled={false}
+                    y={attrs.height - 10}
+                />
+                {/*height*/}
                 {
                     attrs.height >= 80 && <Text
                         fontFamily="Lexend Deca"
                         padding={10}
-                        text={attrs.height / 100 + ' m'}
-                        x={5}
+                        fill={'#5d5c5c'}
+                        text={(attrs.height - 40) / 100 + ' m'}
+                        x={25}
                         y={(attrs.height / 2) - 20}/>
                 }
+                {/*width*/}
                 {
                     attrs.width >= 80 && <Text
                         fontFamily="Lexend Deca"
                         padding={10}
-                        text={attrs.width / 100 + ' m'}
+                        fill={'#5d5c5c'}
+                        text={(attrs.width - 40) / 100 + ' m'}
                         x={(attrs.width / 2) - 20}
-                        y={5}/>
+                        y={25}/>
                 }
+                {/*square meterage*/}
                 {
                     (attrs.width >= 80 && attrs.height >= 80) && <Text
                         fontFamily="Lexend Deca"
                         fill={'#0089ff'}
                         padding={10}
-                        text={`${Math.round(attrs.width * attrs.height) / 10000} m²`}
-                        x={5}
-                        y={(attrs.height) - 40}/>
+                        text={`${Math.round((attrs.width - 40) * (attrs.height - 40)) / 10000} m²`}
+                        x={25}
+                        y={(attrs.height) - 50}/>
                 }
             </Group>
             {isSelected() && (
