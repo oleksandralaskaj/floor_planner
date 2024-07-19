@@ -46,11 +46,11 @@ export const Label = ({selectedNodeId, providedAttrs, updateCanvasData, setSelec
                     })
                 }}
             >
-                <Rect
-                    fill={'white'}
-                    width={attrs.width}
-                    height={attrs.height}
-                />
+                {/*<Rect*/}
+                {/*    fill={'white'}*/}
+                {/*    width={attrs.width}*/}
+                {/*    height={attrs.height}*/}
+                {/*/>*/}
                 <Text
                     fontSize={16}
                     fontFamily={"Lexend Deca"}

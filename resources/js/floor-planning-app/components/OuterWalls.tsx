@@ -66,7 +66,7 @@ export const OuterWalls = ({providedAttrs, selectedNodeId, setSelectedId, update
                     setAttrs({
                         ...attrs,
                         x: Math.round(e.target.x() / GRIDCELLSIZE) * GRIDCELLSIZE,
-                        y: Math.round(e.target.y()/ GRIDCELLSIZE) * GRIDCELLSIZE,
+                        y: Math.round(e.target.y() / GRIDCELLSIZE) * GRIDCELLSIZE,
                         // set minimal value
                         width: Math.max(20, Math.round((node.width() * scaleX) / GRIDCELLSIZE) * GRIDCELLSIZE),
                         height: Math.max(20, Math.round((node.height() * scaleY) / GRIDCELLSIZE) * GRIDCELLSIZE),
@@ -84,8 +84,6 @@ export const OuterWalls = ({providedAttrs, selectedNodeId, setSelectedId, update
                     }}
                     height={attrs.height}
                     width={attrs.width}
-                    fill={'white'}
-
                 />
             </Group>
             {isSelected() && (
