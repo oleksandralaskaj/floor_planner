@@ -82,6 +82,7 @@ export const OuterWalls = ({providedAttrs, selectedNodeId, setSelectedId, update
                         setSelectedId(attrs.id)
                         updateCanvasData(attrs)
                     }}
+                    fill={'rgba(0, 0, 0, 0)'}
                     height={attrs.height}
                     width={attrs.width}
                 />

@@ -11,15 +11,6 @@ export const Label = ({selectedNodeId, providedAttrs, updateCanvasData, setSelec
         return selectedNodeId === attrs.id
     }
     const labelRef: RefObject<Konva.Group> = createRef()
-    // const trRef: RefObject<Konva.Transformer> = createRef()
-    //
-    // useEffect(() => {
-    //     if (isSelected() && labelRef.current) {
-    //         // we need to attach transformer manually
-    //         trRef.current?.nodes([labelRef.current]);
-    //         trRef.current?.getLayer()?.batchDraw();
-    //     }
-    // }, [selectedNodeId]);
 
     useEffect(() => {
         updateCanvasData(attrs)
@@ -46,11 +37,6 @@ export const Label = ({selectedNodeId, providedAttrs, updateCanvasData, setSelec
                     })
                 }}
             >
-                {/*<Rect*/}
-                {/*    fill={'white'}*/}
-                {/*    width={attrs.width}*/}
-                {/*    height={attrs.height}*/}
-                {/*/>*/}
                 <Text
                     fontSize={16}
                     fontFamily={"Lexend Deca"}

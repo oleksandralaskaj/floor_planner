@@ -62,6 +62,12 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                     // we will reset it back
                     node.scaleX(1);
                     node.scaleY(1);
+
+                    e.target.to({
+                        x: Math.round(e.target.x() / GRIDCELLSIZE) * GRIDCELLSIZE,
+                        y: Math.round(e.target.y() / GRIDCELLSIZE) * GRIDCELLSIZE,
+                    })
+
                     setAttrs({
                         ...attrs,
                         x: Math.round(e.target.x() / GRIDCELLSIZE) * GRIDCELLSIZE,
@@ -75,7 +81,7 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                 }
             >
                 <Rect
-                    strokeWidth={10}
+                    strokeWidth={4}
                     stroke={'#5d5c5c'}
                     onMouseDown={() => {
                         setSelectedId(attrs.id)
@@ -84,7 +90,7 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                     height={attrs.height}
                     width={attrs.width}
                     fill={'white'}
-
+                    strokeScaleEnabled={false}
                 />
                 {
                     attrs.height >= 80 && <Text
@@ -121,8 +127,6 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                     anchorStrokeWidth={2}
                     ref={trRef}
                     flipEnabled={false}
-                    padding={-5}
-                    // centeredScaling={true}
                     rotationSnaps={[0, 90, 180, 270]}
                     boundBoxFunc={(oldBox, newBox) => {
                         // sets minimum height and width of a node
