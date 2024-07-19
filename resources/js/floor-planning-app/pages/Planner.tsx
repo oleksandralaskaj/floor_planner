@@ -141,18 +141,20 @@ export const Planner = () => {
                           providedAttrs={shapeData}
                           updateCanvasData={updateCanvasData}
                     />);
-            case 'outerWalls' :
-                return (
-                    <OuterWalls key={shapeData.id}
-                                selectedNodeId={selectedId}
-                                setSelectedId={setSelectedId}
-                                providedAttrs={shapeData}
-                                updateCanvasData={updateCanvasData}
-                    />);
-
         }
     })
 
+    const outerWallContent = shapeArray?.map((shapeData) => {
+        if (shapeData?.type === 'outerWalls') {
+            return <OuterWalls
+                key={shapeData.id}
+                providedAttrs={shapeData}
+                selectedNodeId={selectedId}
+                setSelectedId={setSelectedId}
+                updateCanvasData={updateCanvasData}
+            />
+        }
+    })
     const labelContent = shapeArray?.map((shapeData) => {
         if (shapeData?.type === 'label') {
             return <Label
@@ -202,6 +204,7 @@ export const Planner = () => {
                                   fill={'#333333'}/>
                         </Layer>
                         <Layer ref={layerRef}>
+                            {outerWallContent}
                             {shapeContent}
                             {labelContent}
                         </Layer>

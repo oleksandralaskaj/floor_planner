@@ -137,8 +137,9 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                         padding={10}
                         fill={'#5d5c5c'}
                         text={(attrs.height - 40) / 100 + ' m'}
-                        x={25}
-                        y={(attrs.height / 2) - 20}/>
+                        x={40}
+                        y={(attrs.height / 2) - 20}
+                        rotation={90}/>
                 }
                 {/*width*/}
                 {
@@ -148,7 +149,7 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                         fill={'#5d5c5c'}
                         text={(attrs.width - 40) / 100 + ' m'}
                         x={(attrs.width / 2) - 20}
-                        y={25}/>
+                        y={10}/>
                 }
                 {/*square meterage*/}
                 {
@@ -157,7 +158,7 @@ export const Room = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvas
                         fill={'#0089ff'}
                         padding={10}
                         text={`${Math.round((attrs.width - 40) * (attrs.height - 40)) / 10000} m²`}
-                        x={25}
+                        x={20}
                         y={(attrs.height) - 50}/>
                 }
             </Group>
