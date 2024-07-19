@@ -13,6 +13,8 @@ import {Button} from "../components/Button";
 import {addShape} from "../functions/addShape";
 import {Room} from "../components/Room";
 import {OuterWalls} from "../components/OuterWalls";
+import {Label} from "../components/Label";
+import {NewLabelForm} from "../components/NewLabelForm";
 
 export const GRIDCELLSIZE = 10;
 
@@ -23,7 +25,8 @@ export type Attrs = {
     height: number,
     width: number,
     rotation: number,
-    type: string
+    type: string,
+    text?: string
 }
 
 type  ProjectData = {
@@ -37,7 +40,7 @@ type  ProjectData = {
 
 const canvasSize = {
     height: window.innerHeight - 62,
-    width: window.innerWidth - 132,
+    width: window.innerWidth - 200,
 }
 
 export const Planner = () => {
@@ -128,7 +131,7 @@ export const Planner = () => {
     const linkToDownloadImage = layerRef.current?.toDataURL()
 
 //everything, that goes to canvas
-    const content = shapeArray?.map((shapeData) => {
+    const shapeContent = shapeArray?.map((shapeData) => {
         switch (shapeData?.type) {
             case 'room':
                 return (
@@ -150,13 +153,33 @@ export const Planner = () => {
         }
     })
 
+    const labelContent = shapeArray?.map((shapeData) => {
+        if (shapeData?.type === 'label') {
+            return <Label
+                key={shapeData.id}
+                providedAttrs={shapeData}
+                selectedNodeId={selectedId}
+                setSelectedId={setSelectedId}
+                updateCanvasData={updateCanvasData}
+            />
+        }
+    })
+
+
     return (<>
             {!projectId ? <SetProjectForm setProjectId={setProjectId}/> :
                 <div className={styles.container} id={'workspace'}>
                     <div className={styles.leftbar}>
                         <div className={styles.tools}>
-                            <Button onClickHandler={() => addShape('room', setShapeArray)}>Room</Button>
-                            <Button onClickHandler={() => addShape('outerWalls', setShapeArray)}>Outer Walls</Button>
+                            <Button onClickHandler={() => addShape({
+                                canvasElement: 'room',
+                                setShapeArray: setShapeArray
+                            })}>Room</Button>
+                            <Button onClickHandler={() => addShape({
+                                canvasElement: 'outerWalls',
+                                setShapeArray: setShapeArray
+                            })}>Outer Walls</Button>
+                            <NewLabelForm setShapeArray={setShapeArray}/>
                         </div>
                         <div className={styles.info}>
                             {selectedNodeAttrs ? <>
@@ -174,10 +197,13 @@ export const Planner = () => {
                         </div>
                     </div>
                     <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
-                        <Layer ref={layerRef}>
+                        <Layer>
                             <Text text={projectData?.title} padding={16} fontFamily={"Lexend Deca"} fontSize={32}
                                   fill={'#333333'}/>
-                            {content}
+                        </Layer>
+                        <Layer ref={layerRef}>
+                            {shapeContent}
+                            {labelContent}
                         </Layer>
                         <GridLayer/>
                     </Stage>

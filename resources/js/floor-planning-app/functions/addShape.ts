@@ -3,7 +3,11 @@ import {Dispatch, SetStateAction} from "react";
 import {makeId} from "./makeId"
 
 
-export const addShape = (canvasElement: string, setShapeArray: Dispatch<SetStateAction<Attrs[]>>) => {
+export const addShape = ({canvasElement, text, setShapeArray}: {
+    canvasElement: string,
+    text?: string,
+    setShapeArray: React.Dispatch<React.SetStateAction<Attrs[]>>
+}) => {
     let newElementData: Attrs
     switch (canvasElement) {
         case 'room':
@@ -28,6 +32,17 @@ export const addShape = (canvasElement: string, setShapeArray: Dispatch<SetState
                 type: 'outerWalls'
             };
             break;
+        case 'label':
+            newElementData = {
+                id: makeId(),
+                x: 60,
+                y: 60,
+                height: 30,
+                width: 100,
+                rotation: 0,
+                type: 'label',
+                text: text
+            };
     }
     setShapeArray((previous) => [...previous, newElementData])
 }

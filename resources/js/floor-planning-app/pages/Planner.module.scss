@@ -17,17 +17,37 @@
             weight: 300;
         }
         padding: 1rem;
-        width: 100px;
+        width: 200px;
 
         .info {
 
         }
+
         .save {
             display: flex;
             flex-direction: column;
             gap: 0.25rem;
             align-items: center;
 
+        }
+
+        .tools {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .miniform {
+                border: 1px solid $color-primary;
+                border-radius: 8px;
+                width: auto;
+                padding: 0.5rem;
+                gap: 1rem;
+
+                input {
+                    border: 1px solid $color-primary;
+                    width: 90%;
+                }
+            }
         }
     }
 }
