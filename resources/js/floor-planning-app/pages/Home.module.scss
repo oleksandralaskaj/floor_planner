@@ -48,7 +48,8 @@
         }
 
         .image {
-            background-color: $color-secondary;
+            background: $color-secondary url("../../../../public/example.png") center no-repeat;
+            background-size: contain;
             flex: auto 0 0;
             height: 20rem;
             width: 20rem;
