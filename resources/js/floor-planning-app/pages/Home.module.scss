@@ -48,10 +48,17 @@
         }
 
         .image {
-            background: $color-secondary url("../../../../public/example.png") center no-repeat;
-            background-size: contain;
+            background: {
+                color: $color-secondary;
+                image: url("../../../../public/example.png");
+                position: center center;
+                repeat: no-repeat;
+                size: contain;
+                origin: content-box;
+            };
             flex: auto 0 0;
             height: 20rem;
+            padding: 1rem;
             width: 20rem;
         }
 
